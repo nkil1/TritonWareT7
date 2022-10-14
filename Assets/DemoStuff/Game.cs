@@ -38,6 +38,11 @@ public class Game : MonoBehaviour
             scoreNum += 125;
             score.text = "SCORE: " + scoreNum;
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            speed += 4;
+        }
     }
 
     public void BuyItem()
