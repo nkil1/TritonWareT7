@@ -13,21 +13,30 @@ public class PlayerMovement : MonoBehaviour
 
     // Attacking
     [Header("Attacking")]
-    public Transform attackPosition;
-    public GameObject attackSprite;
+    public Transform attackPivot;
+    public Transform attackPos;
+    public SpriteRenderer attackSprite;
+    public int attackDamage;
+    public float attackKnockback;
     public float attackRadius;
-    //public float attackDuration; - Might use later if we need attacking to be a longer thing
-    //private bool isAttacking = false;
+    public float attackDuration;
+    private bool isAttacking = false;
     
 
     // Sprites and Animation
     [Header("Sprite/Animation")]
     public SpriteRenderer sr;
 
+    // UI
+    [Header("UI")]
+    public GameObject deathScreen;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        attackSprite.enabled = false;
+        deathScreen.SetActive(false);
     }
 
 
@@ -47,12 +56,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             sr.flipX = true;
-            attackPosition.eulerAngles = new Vector3(attackPosition.eulerAngles.x, 180, attackPosition.eulerAngles.z);
+            attackPivot.eulerAngles = new Vector3(attackPivot.eulerAngles.x, 180, attackPivot.eulerAngles.z);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             sr.flipX = false;
-            attackPosition.eulerAngles = new Vector3(attackPosition.eulerAngles.x, 0, attackPosition.eulerAngles.z);
+            attackPivot.eulerAngles = new Vector3(attackPivot.eulerAngles.x, 0, attackPivot.eulerAngles.z);
         }
     }
 
@@ -78,30 +87,56 @@ public class PlayerMovement : MonoBehaviour
 
     private void Attack()
     {
-        //isAttacking = true;
+        if (!isAttacking)
+        {
+            StartCoroutine(AttackCoroutine());
+        }
+    }
+
+    private IEnumerator AttackCoroutine()
+    {
+        isAttacking = true;
 
         // Sets the sword image on
-        attackSprite.SetActive(true);
+        attackSprite.enabled = true;
 
         // Gets all enemies within a certain circle at the attack pos
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPosition.position, attackRadius);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPos.position, attackRadius);
 
         // Gets their enemy scripts and does damage
         foreach (Collider2D col in colliders)
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
-                col.gameObject.GetComponent<Enemy>();
+                GameObject enemy = col.gameObject;
+
+                // Does damage
+                enemy.GetComponent<Health>().Damage(attackDamage);
+                enemy.GetComponent<Enemy>().TakeDamage();
+
+                // Adds knockback
+                Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+                Vector2 direction = enemy.transform.position - transform.position;
+                rb.AddForce(direction.normalized * attackKnockback, ForceMode2D.Impulse);
             }
         }
 
-        // Sets sword image off
-        attackSprite.SetActive(false);
+        // Sets sword image off after attackDuration amt of time
+        yield return new WaitForSeconds(attackDuration);
+        attackSprite.enabled = false;
+
+        isAttacking = false;
     }
 
     private void OnDrawGizmos()
     {
         // Draws attack radius
-        Gizmos.DrawWireSphere(attackPosition.position, attackRadius);
+        Gizmos.DrawWireSphere(attackPos.position, attackRadius);
+    }
+
+    private void OnDestroy()
+    {
+        //deathScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 }

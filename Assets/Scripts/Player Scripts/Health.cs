@@ -7,26 +7,24 @@ public class Health : MonoBehaviour
     private int MAX_HEALTH = 100;
     [SerializeField] private int health = 100;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     public void Damage(int amount)
     {
         if (amount < 0)
         {
             throw new System.ArgumentOutOfRangeException("Can't have negative dmg");
         }
-        health -= amount;
+
+        // Visuals
         StartCoroutine(VisualIndicator(Color.red));
+
+        // Does Damage
+        health -= amount;
         if (health <= 0)
         {
             Die();
         }
     }
 
-    // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -60,7 +58,7 @@ public class Health : MonoBehaviour
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
-public void Heal(int amount)
+    public void Heal(int amount)
     {
         if (amount < 0)
         {
@@ -76,12 +74,13 @@ public void Heal(int amount)
             StartCoroutine(VisualIndicator(Color.green));
         }
     }
+
     private void Die()
     {
         Debug.Log("Ded!");
         Destroy(gameObject);
-
     }
+
     public void SetHealth(int maxHealth,int health)
     {
         MAX_HEALTH = maxHealth;

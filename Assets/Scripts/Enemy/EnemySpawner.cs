@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
     {
         
     }
+
     private IEnumerator spawnEnemy(float interval, GameObject enemy)
     {
         yield return new WaitForSeconds(interval);
