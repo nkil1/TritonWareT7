@@ -100,15 +100,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 3
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &4241500448972996920
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,3 +163,5 @@ MonoBehaviour:
   damage: 20
   speed: 0.75
   data: {fileID: 11400000, guid: ab79a9ae2501887419e23a57c7a6322d, type: 2}
+  hitParticles: {fileID: 4540279717447419096, guid: fa23f4e4950e7c141a5e72c46630e164, type: 3}
+  deathParticles: {fileID: 1964571176073261705, guid: b0979d64e4d2e2b45a0a629d0852b06a, type: 3}

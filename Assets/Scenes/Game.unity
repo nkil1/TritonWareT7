@@ -154,7 +154,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 744127101}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &144878939
 BoxCollider2D:
@@ -265,7 +265,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 744127101}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &260132393
 BoxCollider2D:
@@ -962,11 +962,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 858849064}
+  - {fileID: 1332463069}
   - {fileID: 1682436070}
   - {fileID: 819254332}
   - {fileID: 144878938}
   - {fileID: 260132392}
-  - {fileID: 1332463069}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1001,7 +1001,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 744127101}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &819254333
 BoxCollider2D:
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swarmerPrefab: {fileID: 4241500448972996926, guid: 6a75e4619ea4ee64ba46021756c64eed, type: 3}
   bigSwarmerPrefab: {fileID: 367182144350028254, guid: 26e46c39012626d449195e506fda0867, type: 3}
-  swarmerInterval: 3.5
+  swarmerInterval: 2
   bigSwarmerInterval: 10
 --- !u!4 &858849064
 Transform:
@@ -1235,6 +1235,7 @@ MonoBehaviour:
   attackPos: {fileID: 1346379664}
   attackSprite: {fileID: 396666203}
   attackDamage: 5
+  attackKnockback: 6
   attackRadius: 0.7
   attackDuration: 0.25
   sr: {fileID: 956022994}
@@ -1435,7 +1436,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 744127101}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1332463070
 BoxCollider2D:
@@ -1532,7 +1533,7 @@ MonoBehaviour:
   enemyTypes:
   - {fileID: 367182144350028254, guid: 26e46c39012626d449195e506fda0867, type: 3}
   - {fileID: 4241500448972996926, guid: 6a75e4619ea4ee64ba46021756c64eed, type: 3}
-  spawnTimeRange: {x: 2, y: 5}
+  spawnTimeRange: {x: 5, y: 10}
 --- !u!1 &1346379663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,7 +1716,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 744127101}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1682436071
 SpriteRenderer:

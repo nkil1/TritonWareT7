@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform attackPos;
     public SpriteRenderer attackSprite;
     public int attackDamage;
+    public float attackKnockback;
     public float attackRadius;
     public float attackDuration;
     private bool isAttacking = false;
@@ -107,7 +108,16 @@ public class PlayerMovement : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
-                col.gameObject.GetComponent<Health>().Damage(attackDamage);
+                GameObject enemy = col.gameObject;
+
+                // Does damage
+                enemy.GetComponent<Health>().Damage(attackDamage);
+                enemy.GetComponent<Enemy>().TakeDamage();
+
+                // Adds knockback
+                Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+                Vector2 direction = enemy.transform.position - transform.position;
+                rb.AddForce(direction.normalized * attackKnockback, ForceMode2D.Impulse);
             }
         }
 
@@ -126,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
-        deathScreen.SetActive(true);
+        //deathScreen.SetActive(true);
         Time.timeScale = 0;
     }
 }

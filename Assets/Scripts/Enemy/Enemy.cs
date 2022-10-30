@@ -13,6 +13,9 @@ public class Enemy : MonoBehaviour
     private EnemyData data;
     private GameObject player;
 
+    public ParticleSystem hitParticles;
+    public ParticleSystem deathParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,11 @@ public class Enemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
+    public void TakeDamage()
+    {
+        Instantiate(hitParticles, transform.position, Quaternion.identity);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -46,7 +54,7 @@ public class Enemy : MonoBehaviour
             if (h != null)
             {
                 h.Damage(damage);
-                this.GetComponent<Health>().Damage(10000);
+                //this.GetComponent<Health>().Damage(10000);
             }
         }
     }
