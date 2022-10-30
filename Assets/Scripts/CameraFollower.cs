@@ -5,17 +5,38 @@ using UnityEngine;
 public class CameraFollower : MonoBehaviour
 {
 
-    private Camera cam;
+    public Camera cam;
     public GameObject toFollow;
-    public float viewportSize = 0.2f; //size the player can move in the screen before camera starts to follow
-    
+    public float viewportSize = 2f; //area the player can move in world coordinates before the camera moves
+    public float followSpeed = 10.0f; //area the player can move in world coordinates before the camera moves
+
     void Start()
     {
-        cam = GetComponent<Camera>();
+
     }
 
     void Update()
     {
+
+
+        Vector3 camx = cam.transform.position;
+        Vector3 f = cam.transform.forward;
+        Vector3 current = camx-f*(camx.y/f.y); //position of the center of the screen projected to the (x,0,z) plane.
+
+        Vector3 target = new Vector3(toFollow.transform.position.x, 0f, toFollow.transform.position.z);
+        Vector3 targetClamped = new Vector3(
+            Mathf.Clamp(target.x, current.x - viewportSize / 2.0f, current.x + viewportSize / 2.0f),
+            0f,
+            Mathf.Clamp(target.z, current.z - viewportSize / 2.0f, current.z + viewportSize / 2.0f));
+
+        Vector3 translationVector = target - targetClamped;
+
+
+
+        Vector3 newCameraPos = cam.transform.position + translationVector;
+        cam.transform.position = Vector3.Lerp(cam.transform.position,newCameraPos,1.0f-Mathf.Exp(-followSpeed*Time.deltaTime));
+
+
         /*
         //Position of the player in the viewport
         Vector3 viewportPos=cam.WorldToViewportPoint(toFollow.transform.position);
