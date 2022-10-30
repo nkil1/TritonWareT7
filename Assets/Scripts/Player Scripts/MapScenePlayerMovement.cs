@@ -46,14 +46,13 @@ public class MapScenePlayerMovement : MonoBehaviour
         {
             Attack();
         }
-
         if (velocity.magnitude > 0.01)
         {
-            anim.Play("Player_Run");
+            anim.Play("Base Layer.Run");
         }
         else
         {
-            anim.Play("Player_Idle");
+            anim.Play("Base Layer.Idle");
 
         }
 
