@@ -26,11 +26,16 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sprite/Animation")]
     public SpriteRenderer sr;
 
+    // UI
+    [Header("UI")]
+    public GameObject deathScreen;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         attackSprite.enabled = false;
+        deathScreen.SetActive(false);
     }
 
 
@@ -117,5 +122,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // Draws attack radius
         Gizmos.DrawWireSphere(attackPos.position, attackRadius);
+    }
+
+    private void OnDestroy()
+    {
+        deathScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 }

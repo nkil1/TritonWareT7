@@ -38,11 +38,11 @@ public class Enemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Health h = collision.GetComponent<Health>();
+            Health h = collision.gameObject.GetComponent<Health>();
             if (h != null)
             {
                 h.Damage(damage);
