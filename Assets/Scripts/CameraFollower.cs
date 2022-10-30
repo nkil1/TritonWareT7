@@ -16,6 +16,7 @@ public class CameraFollower : MonoBehaviour
 
     void Update()
     {
+        /*
         //Position of the player in the viewport
         Vector3 viewportPos=cam.WorldToViewportPoint(toFollow.transform.position);
 
@@ -28,6 +29,6 @@ public class CameraFollower : MonoBehaviour
         newCameraPos = new Vector3(newCameraPos.x, newCameraPos.y, cam.transform.position.z);
         cam.transform.position = newCameraPos; //could also do something like lerp(cam.transform.position,newCameraPos,dt);
 
-        Debug.Log(cam.transform.position - cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f)));
+        Debug.Log(cam.transform.position - cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f)));*/
     }
 }

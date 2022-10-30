@@ -7,8 +7,8 @@ public class MapScenePlayerMovement : MonoBehaviour
     // Movement
     [Header("Movement")]
     [SerializeField] private float speed = 3f;
-    private Rigidbody2D rb;
-    private Vector2 velocity;
+    public Rigidbody rb;
+    private Vector3 velocity;
 
 
     // Attacking
@@ -22,15 +22,15 @@ public class MapScenePlayerMovement : MonoBehaviour
 
     // Sprites and Animation
     /*[Header("Sprite/Animation")]*/
-    private SpriteRenderer sr;
-    private Animator anim;
+    public SpriteRenderer sr;
+    public Animator anim;
 
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        /*rb = GetComponent<Rigidbody>();
         sr= GetComponent<SpriteRenderer>();
-        anim= GetComponent<Animator>();
+        anim= GetComponent<Animator>();*/
     }
 
 
@@ -38,7 +38,8 @@ public class MapScenePlayerMovement : MonoBehaviour
     {
         // Gets WASD Input
         velocity.x = Input.GetAxisRaw("Horizontal");
-        velocity.y = Input.GetAxisRaw("Vertical");
+        velocity.y = 0;
+        velocity.z = Input.GetAxisRaw("Vertical");
 
         // Attacking
         if (Input.GetKeyDown(KeyCode.Space))
